@@ -31,8 +31,13 @@ module ScalesCore =
 
     let mayorSchema : Schema = [| Key; Dis; Harm; Dis; Chor; Harm; Dis; Chor; Dis; Harm; Dis; Harm |]
 
+    let minorSchema : Schema = [| Key; Dis; Harm; Chor; Dis; Harm; Dis; Chor; Harm; Dis; Harm; Dis |]
+
+    let guitarStandardTuning : Tuning =
+        [| E; B; G; D; A; E |]
+    
     let violinStandardTuning : Tuning =
-        [| G; D; A; E |]
+        [| E; A; D; G |]
     
     let permuteNotes (notes : Scale) (i: int) : Scale =
         let len = notes.Length
@@ -103,9 +108,10 @@ module ScalesCore =
         getFifths
         |> Array.map (fun x -> (x, getMayorScale x))
     
-    let getCircleIfFifthsStringSchemas (tuning : Tuning) : array<Note * array<Note * Schema>> =
+    let getCircleOfFifthsStringSchemas (tuning : Tuning) : array<Note * array<Note * Schema>> =
         getFifths
         |> Array.map (fun x -> (x, (getStringSchemas tuning mayorSchema x)))
 
-    let getViolinCricleOfFifths () : array<Note * array<Note * Schema>> =
-        getCircleIfFifthsStringSchemas violinStandardTuning
+    let getViolinCircleOfFifths () : array<Note * array<Note * Schema>> =
+        getCircleOfFifthsStringSchemas violinStandardTuning
+
